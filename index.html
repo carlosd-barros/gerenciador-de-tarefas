@@ -12,8 +12,47 @@
 <body>
 
     <main role="main">
-        <div class="container ">
-            <h1>Hello</h1>
+        <div class="container">
+            <div class="text-center py-3">
+
+                <h1>Tarefas</h1> <br />
+
+                <div class="pb-4">
+                    <div class="d-flex justify-content-between">
+                        <div class=" input-group md-form">
+                            <input
+                                id="nome_tarefa"
+                                type="text"
+                                name="description"
+                                autocomplete="off"
+                                class="form-control"
+                                placeholder="Descrição"
+                            />
+                            <div class="input-group-append">
+                                <button class="btn btn-dark btn-block" title="Salvar">
+                                    Salvar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <br>
+
+                <div id="div_lista">
+                    <table id="tabela-tarefa" class="table table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="text-center">Entrega</th>
+                              <th scope="text-left">Nome</th>
+                              <th scope="text-center">Ações</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                          </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
     </main>
 
