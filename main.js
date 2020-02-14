@@ -14,7 +14,7 @@ var tasks = JSON.parse(localStorage.getItem("task_list")) || [];
 function addTask() {
   let task = document.querySelector("#nome_tarefa");
   let content = task.split("em");
-  let newTask = new Tarefa(contet[0], content[1]);
+  let newTask = new Tarefa(content[0], content[1]);
   localStorage.setItem(newTask.content, newTask.date);
 }
 
