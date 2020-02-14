@@ -23,4 +23,7 @@ function getTasks() {
   return localStorage;
 }
 
-//const novaTarefa = new Tarefa("Fazer tarefa de LPWEB");
+// SALVANDO NO STORAGE
+function saveToStorage() {
+  localStorage.setItem("task_list", JSON.stringify(tasks));
+}
