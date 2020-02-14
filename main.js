@@ -8,4 +8,16 @@ class Tarefa {
   }
 }
 
+function addTask(task){
+  localStorage.setItem(task.conteudo, task.data);
+}
+
+function removeTask(task){
+  localStorage.removeItem(task.conteudo);
+}
+
+function getTasks(){
+  return localStorage;
+}
+
 //const novaTarefa = new Tarefa("Fazer tarefa de LPWEB");
