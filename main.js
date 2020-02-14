@@ -9,6 +9,10 @@ class Task {
   }
 }
 
+var tasks = JSON.parse(
+    localStorage.getItem('task_list')
+) || [];
+
 function addTask(task) {
   let content = task.split("em");
   let newTask = new Tarefa(contet[0], content[1]);
