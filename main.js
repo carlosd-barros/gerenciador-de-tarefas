@@ -31,3 +31,7 @@ function getTasks() {
 function saveToStorage() {
   localStorage.setItem("task_list", JSON.stringify(tasks));
 }
+
+function renderTaskList() {
+    let 
+}
