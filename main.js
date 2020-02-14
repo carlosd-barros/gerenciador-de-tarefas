@@ -1,22 +1,25 @@
-class Tarefa {
-  constructor(conteudo) {
-    let data = new Date();
-    this.conteudo = conteudo;
-    this.data = ` em ${data.getDate()}/${data.getMonth() +
-      1}/${data.getFullYear()}`;
-    this.concluido = false;
+class Task {
+  constructor(content, date) {
+    this.content = content;
+    this.date = date;
+    this.isfinished = false;
+  }
+  finishTask() {
+    this.isfinished = True;
   }
 }
 
-function addTask(task){
-  localStorage.setItem(task.conteudo, task.data);
+function addTask(task) {
+  let content = task.split("em");
+  let newTask = new Tarefa(contet[0], content[1]);
+  localStorage.setItem(newTask.content, newTask.date);
 }
 
-function removeTask(task){
+function removeTask(task) {
   localStorage.removeItem(task.conteudo);
 }
 
-function getTasks(){
+function getTasks() {
   return localStorage;
 }
 
