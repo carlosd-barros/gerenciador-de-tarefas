@@ -9,11 +9,10 @@ class Task {
   }
 }
 
-var tasks = JSON.parse(
-    localStorage.getItem('task_list')
-) || [];
+var tasks = JSON.parse(localStorage.getItem("task_list")) || [];
 
-function addTask(task) {
+function addTask() {
+  let task = document.querySelector("#nome_tarefa");
   let content = task.split("em");
   let newTask = new Tarefa(contet[0], content[1]);
   localStorage.setItem(newTask.content, newTask.date);
@@ -33,5 +32,5 @@ function saveToStorage() {
 }
 
 function renderTaskList() {
-    let 
+  let;
 }
