@@ -46,17 +46,19 @@ function createTdActions(task_id, finished) {
     btn_div.classList.add('text-center', 'align-middle', 'btn-group');
 
     // create btn save
-    let btn_save = document.createElement('button');
-    btn_save.classList.add('btn', 'btn-sm', 'btn-outline-success');
-    btn_save.setAttribute( 'onclick', `concludeTask(${task_id})` );
-    
+    let btn_conclude = document.createElement('button');
+    btn_conclude.title = 'Concluir';
+    btn_conclude.classList.add('btn', 'btn-sm', 'btn-outline-success');
+    btn_conclude.setAttribute( 'onclick', `concludeTask(${task_id})` );
+
     let li_save = document.createElement('li');
     li_save.classList.add('fas', 'fa-check');
-    
-    btn_save.appendChild(li_save);
-    
+
+    btn_conclude.appendChild(li_save);
+
     // create btn delete
     let btn_delete = document.createElement('button');
+    btn_delete.title = 'Excluir';
     btn_delete.classList.add('btn', 'btn-sm', 'btn-outline-danger');
     btn_delete.setAttribute( 'onclick', `removeTask(${task_id})` );
     
@@ -67,12 +69,12 @@ function createTdActions(task_id, finished) {
     // disable btns for isFinished == true
     if (finished) {
         console.log('tarefa concluida, desabilitando botões de ação');
-        btn_save.setAttribute('disabled', 'true');
+        btn_conclude.setAttribute('disabled', 'true');
         btn_delete.setAttribute('disabled', 'true');
     }
 
     // add btns on btn_div
-    btn_div.appendChild(btn_save);
+    btn_div.appendChild(btn_conclude);
     btn_div.appendChild(btn_delete);
 
     // add btn_div on td_actions
