@@ -11,36 +11,30 @@ class Task {
     }
 }
 
-
 // get task_list from storage
-const tasks = JSON.parse(
-    localStorage.getItem("task_list")
-) || [];
+const tasks = JSON.parse(localStorage.getItem("task_list")) || [];
 
 // save task_list on storage
 function saveToStorage() {
-    localStorage.setItem(
-        "task_list", JSON.stringify(tasks)
-    );
+    localStorage.setItem("task_list", JSON.stringify(tasks));
 }
 
 // Criar o obj Task, add obj Task na tasks list,
 // chama a func de rederizar e salva novos dados no storage
-document.getElementById('btn_salvar').onclick = function() {
-    let task_input = document.getElementById('task_name');
+document.getElementById("btn_salvar").onclick = function() {
+    let task_input = document.getElementById("task_name");
     let input_value = task_input.value;
 
-    if(input_value.length !== 0) {
+    if (input_value.length !== 0) {
         let [name, date] = input_value.split("em");
         let newTask = new Task(name, date);
 
         tasks.push(newTask);
         saveToStorage();
-        task_input.value = '';
+        task_input.value = "";
         renderTaskList();
     }
-
-}
+};
 
 // function addTask(task) {
 //   let name = task.split("em");
@@ -50,16 +44,16 @@ document.getElementById('btn_salvar').onclick = function() {
 
 function renderTaskList() {
     let tbody_element = document.querySelector("#tabela_tarefa tbody");
-    let tr_element = document.createElement('tr');
-    tbody_element.innerHTML = '';
+    let tr_element = document.createElement("tr");
+    tbody_element.innerHTML = "";
 
     if (tasks.length < 1) {
-        console.log('nenhuma task encontrada');
+        console.log("nenhuma task encontrada");
 
-        let td_empty = document.createElement('td');
-        td_empty.setAttribute('colspan', 3);
+        let td_empty = document.createElement("td");
+        td_empty.setAttribute("colspan", 3);
         td_empty.appendChild(
-            document.createTextNode('Nenhuma tarefa pendente encontrada.')
+            document.createTextNode("Nenhuma tarefa pendente encontrada.")
         );
         tr_element.appendChild(td_empty);
         tbody_element.appendChild(tr_element);
@@ -67,10 +61,10 @@ function renderTaskList() {
         return;
     }
 
-    console.log('iniciando processo de renderização');
+    console.log("iniciando processo de renderização");
 
-    for ( let i=0; i < tasks.length; i++) {
-        tr_element = document.createElement('tr');
+    for (let i = 0; i < tasks.length; i++) {
+        tr_element = document.createElement("tr");
 
         let [td_entrega, td_name, td_actions] = createTdElements(tasks[i], i);
 
@@ -80,7 +74,7 @@ function renderTaskList() {
 
         tbody_element.appendChild(tr_element);
     }
-    console.log('fim da renderização de elementos');
+    console.log("fim da renderização de elementos");
 }
 
 renderTaskList();
@@ -103,8 +97,7 @@ function concludeTask(task_id) {
 }
 
 function getTasks() {
-  return localStorage;
+    return localStorage;
 }
-
 
 // trabalho de lpweb em 20/02/2020
