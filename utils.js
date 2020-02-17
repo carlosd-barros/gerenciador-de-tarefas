@@ -1,46 +1,65 @@
 // UTILS
 
-function createTdElements({name, date, isFinished}, task_id) {
+function createTdElements({name=null, date=null, isFinished=null}, task_id) {
     const td_list = new Array;
+    let valid = isFinished === true || isFinished === false;
 
-    td_list.push(createTdEntrega(date));
-    td_list.push(createTdNome(name, isFinished));
-    td_list.push(createTdActions(task_id, isFinished));
+    if (name && date && valid) {
+        td_list.push(
+            createTdEntrega(date, isFinished),
+            createTdNome(name, isFinished),
+            createTdActions(task_id, isFinished)
+        );
+    }
 
     return td_list;
 }
 
-function createTdEntrega(date=null) {
+function createTdEntrega(date, finished) {
+    if (!date) return null;
+
     let [day, month] = date.split('/');
 
     let td_entrega = document.createElement('td');
-    td_entrega.appendChild(
-        document.createTextNode(`${day}/${month}`)
-    );
+    td_entrega.classList.add('text-left');
+    let text_entrega = document.createTextNode(`${day}/${month}`);
+
+    if (finished) {
+        console.log('tarefa finalizada. tachando data de entrega.');
+        let del_element = document.createElement('del');
+        del_element.appendChild(text_entrega);
+        td_entrega.appendChild(del_element);
+        return td_entrega;
+    }
+
+    td_entrega.appendChild(text_entrega);
 
     return td_entrega;
 }
 
 function createTdNome(name, finished) {
+    if (!name) return;
+
     let td_name = document.createElement('td');
+    td_name.classList.add('text-center');
+    let text_name = document.createTextNode(name);
 
     if (finished) {
+        console.log('tarefa finalizada. tachando nome.');
         let del_element = document.createElement('del');
-        del_element.appendChild(
-            document.createTextNode(name)
-        )
+        del_element.appendChild(text_name);
         td_name.appendChild(del_element);
-    } else {
-        td_name.appendChild(
-            document.createTextNode(name)
-        );
+        return td_name;
     }
+
+    td_name.appendChild(text_name);
 
     return td_name;
 }
 
 function createTdActions(task_id, finished) {
     let td_actions = document.createElement('td');
+    td_actions.classList.add('text-center');
 
     const btn_div = document.createElement('div');
     btn_div.classList.add('text-center', 'align-middle', 'btn-group');
@@ -68,7 +87,7 @@ function createTdActions(task_id, finished) {
 
     // disable btns for isFinished == true
     if (finished) {
-        console.log('tarefa concluida, desabilitando botões de ação');
+        console.log('tarefa concluida. desabilitando botões de ação.');
         btn_conclude.setAttribute('disabled', 'true');
         btn_delete.setAttribute('disabled', 'true');
     }
