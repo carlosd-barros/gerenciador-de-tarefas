@@ -7,17 +7,12 @@ class Task {
     }
 }
 
-
 // get task_list from storage
-const tasks = JSON.parse(
-    localStorage.getItem("task_list")
-) || [];
+const tasks = JSON.parse(localStorage.getItem("task_list")) || [];
 
 // save task_list on storage
 function saveToStorage() {
-    localStorage.setItem(
-        "task_list", JSON.stringify(tasks)
-    );
+    localStorage.setItem("task_list", JSON.stringify(tasks));
 }
 
 // Criar o obj Task, add obj Task na tasks list,
@@ -33,7 +28,7 @@ document.getElementById('btn_salvar').onclick = function() {
 
         tasks.push(newTask);
         saveToStorage();
-        task_input.value = '';
+        task_input.value = "";
         renderTaskList();
     }
 }
@@ -76,16 +71,16 @@ function formatTextInput(text) {
 
 function renderTaskList() {
     let tbody_element = document.querySelector("#tabela_tarefa tbody");
-    let tr_element = document.createElement('tr');
-    tbody_element.innerHTML = '';
+    let tr_element = document.createElement("tr");
+    tbody_element.innerHTML = "";
 
     if (tasks.length < 1) {
-        console.log('nenhuma task encontrada');
+        console.log("nenhuma task encontrada");
 
-        let td_empty = document.createElement('td');
-        td_empty.setAttribute('colspan', 3);
+        let td_empty = document.createElement("td");
+        td_empty.setAttribute("colspan", 3);
         td_empty.appendChild(
-            document.createTextNode('Nenhuma tarefa pendente encontrada.')
+            document.createTextNode("Nenhuma tarefa pendente encontrada.")
         );
         tr_element.appendChild(td_empty);
         tbody_element.appendChild(tr_element);
@@ -93,7 +88,7 @@ function renderTaskList() {
         return;
     }
 
-    console.log('iniciando processo de renderização');
+    console.log("iniciando processo de renderização");
 
     tasks.map(function(item, pos) {
         tr_element = document.createElement('tr');
@@ -143,7 +138,7 @@ function concludeTask(task_id) {
 }
 
 function getTasks() {
-  return localStorage;
+    return localStorage;
 }
 
 // trabalho de lpweb em 20/02/2020
