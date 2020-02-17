@@ -5,10 +5,6 @@ class Task {
         this.isFinished = false;
         // this.id = create_UUID();
     }
-
-    finishTask() {
-        this.isFinished = True;
-    }
 }
 
 
@@ -28,10 +24,11 @@ function saveToStorage() {
 // chama a func de rederizar e salva novos dados no storage
 document.getElementById('btn_salvar').onclick = function() {
     let task_input = document.getElementById('task_name');
-    let input_value = task_input.value;
+    let [args, is_valid] = formatTextInput(task_input.value);
+    console.log(args, is_valid);
 
-    if(input_value.length !== 0) {
-        let [name, date] = input_value.split("em");
+    if(is_valid) {
+        let [name, date] = args;
         let newTask = new Task(name, date);
 
         tasks.push(newTask);
@@ -39,7 +36,36 @@ document.getElementById('btn_salvar').onclick = function() {
         task_input.value = '';
         renderTaskList();
     }
+}
 
+function formatTextInput(text) {
+    // default values
+    let is_valid = true;
+    let args = new Array;
+
+    if (text.length <= 0) return [args, false];
+
+    // separando os dados
+    let date_format = ['DD/MM/YYYY', 'DD-MM-YYYY'];
+    let pos_em_text = text.lastIndexOf('em');
+    let name_text = text.slice(0, pos_em_text);
+    let date_text = text.slice(pos_em_text, text.length);
+    let date = moment(date_text.split('em')[1], date_format);
+
+    console.log(name_text, date_text, date, date.isValid());
+
+    // get current year
+    moment.locale('pt-br');
+    let current_yaer = moment().format('YYYY');
+
+    if (!date_text.endsWith(current_yaer) || !date.isValid()) {
+        alert('data invalida!');
+        return [args, false]
+    };
+
+    args.push(name_text, date.format(date_format[0]));
+
+    return [args, is_valid];
 }
 
 // function addTask(task) {
@@ -69,42 +95,56 @@ function renderTaskList() {
 
     console.log('iniciando processo de renderização');
 
-    for ( let i=0; i < tasks.length; i++) {
+    tasks.map(function(item, pos) {
         tr_element = document.createElement('tr');
+        tr_element.id = `task_${pos}`;
+        let td_list = createTdElements(item, pos);
 
-        let [td_entrega, td_name, td_actions] = createTdElements(tasks[i], i);
+        if (td_list.length > 0) {
+            td_list.map(function(item) {
+                tr_element.appendChild(item)
+            });
 
-        tr_element.appendChild(td_entrega);
-        tr_element.appendChild(td_name);
-        tr_element.appendChild(td_actions);
+            tbody_element.appendChild(tr_element);
 
-        tbody_element.appendChild(tr_element);
-    }
+            return;
+        }
+
+        console.log('td_list vazio');
+    });
+
     console.log('fim da renderização de elementos');
+    console.log('----------------------------');
 }
 
 renderTaskList();
 
 function removeTask(task_id) {
-    console.log(`remove task: ${tasks[task_id].name}`);
-    tasks.splice(task_id, 1);
-    renderTaskList();
-    saveToStorage();
+    let task = tasks[task_id];
+
+    if (task) {
+        $(`#task_${task_id}`).fadeOut(1000);
+        console.log(`remove task: ${task.name}`);
+        tasks.splice(task_id, 1);
+        saveToStorage();
+        // setTimeout(renderTaskList, 1200);
+    };
 }
 
 function concludeTask(task_id) {
     let task = tasks[task_id];
-    console.log(`conclude task: ${tasks[task_id].name}`);
 
-    if (task) task.isFinished = true;
-    console.log(task.isFinished);
-    renderTaskList();
-    saveToStorage();
+    if (task) {
+        console.log(`conclude task: ${task.name}`);
+        task.isFinished = true
+        saveToStorage();
+        renderTaskList();
+    };
 }
 
 function getTasks() {
   return localStorage;
 }
 
-
 // trabalho de lpweb em 20/02/2020
+// Trabalho em de lpweb em 20/02/2020
