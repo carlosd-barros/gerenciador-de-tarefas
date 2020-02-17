@@ -8,11 +8,24 @@ class Task {
 }
 
 // get task_list from storage
-const tasks = JSON.parse(localStorage.getItem("task_list")) || [];
+var tasks = JSON.parse(localStorage.getItem("task_list")) || [];
 
 // save task_list on storage
 function saveToStorage() {
     localStorage.setItem("task_list", JSON.stringify(tasks));
+}
+
+// clean task_list
+document.getElementById('delete_task_list').onclick = function() {
+    let message = 'Desaja deletar todas as tarefas?';
+
+    if (!confirm(message)) {
+        return;
+    }
+
+    tasks = [];
+    saveToStorage();
+    renderTaskList();
 }
 
 // Criar o obj Task, add obj Task na tasks list,
@@ -78,6 +91,7 @@ function renderTaskList() {
         console.log("nenhuma task encontrada");
 
         let td_empty = document.createElement("td");
+        td_empty.classList.add('text-center');
         td_empty.setAttribute("colspan", 3);
         td_empty.appendChild(
             document.createTextNode("Nenhuma tarefa pendente encontrada.")

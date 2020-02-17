@@ -16,35 +16,34 @@
     <main role="main">
         <div class="container">
 
-            <div class="text-center py-3">
-                <h1>Tarefas</h1> <br />
+            <h1 class="col pb-2">Tarefas</h1> <br />
 
-                <div class="pb-4">
-                    <div class="d-flex justify-content-center">
-                        <div class="col-md-6 input-group md-form">
-                            <input
-                                type="text"
-                                id="task_name"
-                                name="task_name"
-                                class="form-control"
-                                placeholder="Nome da tarefa"
-                            />
-                            <div class="input-group-append">
-                                <button id="btn_salvar" class="btn btn-dark btn-block" title="Salvar">
-                                    Salvar
-                                </button>
-                            </div>
+            <div class="pb-4">
+                <div class="d-flex justify-content-between">
+                    <div class="col-md-6 input-group md-form">
+                        <input
+                            type="text"
+                            id="task_name"
+                            name="task_name"
+                            class="form-control"
+                            placeholder="Nome da tarefa"
+                        />
+                        <div class="input-group-append">
+                            <button id="btn_salvar" class="btn btn-dark btn-block" title="Salvar">
+                                Salvar
+                            </button>
                         </div>
                     </div>
 
-                    <small class="text-info">
-                        Formato de texto esperado: '[nome da terefa] [em] [data de entrega da tarefa]' <br />
-                        Exemplo: Trabalho de lpweb em 20/02/2020
-                    </small>
+                    <div class="col-md-auto">
+                        <button id="delete_task_list" class="col-md-auto btn btn-outline-secondary">
+                            Limpar Lista
+                        </button>
+                    </div>
                 </div>
             </div> <br />
 
-            <div id="div_table" class="pb-4">
+            <div id="div_table" class="col pb-4">
                 <table id="tabela_tarefa" class="table table-striped">
                     <thead>
                         <tr>
