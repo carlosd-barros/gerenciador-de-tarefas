@@ -19,8 +19,8 @@ function saveToStorage() {
 document.getElementById('delete_task_list').onclick = function() {
     let message = 'Desaja deletar todas as tarefas?';
 
-    if (!confirm(message)) {
-        return;
+    if (!confirm(message,)) {
+        return false;
     }
 
     tasks = [];
@@ -33,7 +33,6 @@ document.getElementById('delete_task_list').onclick = function() {
 document.getElementById('btn_salvar').onclick = function() {
     let task_input = document.getElementById('task_name');
     let [args, is_valid] = formatTextInput(task_input.value);
-    console.log(args, is_valid);
 
     if(is_valid) {
         let [name, date] = args;
@@ -60,10 +59,7 @@ function formatTextInput(text) {
     let date_text = text.slice(pos_em_text, text.length);
     let date = moment(date_text.split('em')[1], date_format);
 
-    console.log(name_text, date_text, date, date.isValid());
-
     // get current year
-    moment.locale('pt-br');
     let current_yaer = moment().format('YYYY');
 
     if (!date_text.endsWith(current_yaer) || !date.isValid()) {
@@ -132,11 +128,11 @@ function removeTask(task_id) {
     let task = tasks[task_id];
 
     if (task) {
-        $(`#task_${task_id}`).fadeOut(1000);
+        $(`#task_${task_id}`).fadeOut(900);
         console.log(`remove task: ${task.name}`);
         tasks.splice(task_id, 1);
         saveToStorage();
-        // setTimeout(renderTaskList, 1200);
+        setTimeout(renderTaskList, 1200);
     };
 }
 
@@ -145,9 +141,11 @@ function concludeTask(task_id) {
 
     if (task) {
         console.log(`conclude task: ${task.name}`);
+        $(`#task_${task_id}`).fadeOut(900);
         task.isFinished = true
         saveToStorage();
-        renderTaskList();
+        $(`#task_${task_id}`).fadeIn(200);
+        setTimeout(renderTaskList, 1000);
     };
 }
 
